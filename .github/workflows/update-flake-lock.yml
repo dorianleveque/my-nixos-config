@@ -39,6 +39,7 @@ jobs:
           title: "chore: update flake.lock"
           body: "Mise à jour automatique du flake.lock"
           base: main
+          auto-merge: squash
 
   # Check that flake was correctly update for auto-merge
   validate:
@@ -56,15 +57,3 @@ jobs:
 
       - name: Validate flake
         run: nix flake check ./ci
-
-
-  # Auto-merge une fois le check passé
-  automerge:
-    runs-on: ubuntu-latest
-    needs: [ update, validate ]
-    if: needs.update.outputs.has-changes == 'true'
-    steps:
-      - name: Enable auto-merge
-        run: gh pr merge update-flake-lock --auto --squash
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
