@@ -1,7 +1,7 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
-  imports = [ ./home.nix ];
+  imports = [ ./mini.nix ];
 
   features = {
     firefox.enable = true;
